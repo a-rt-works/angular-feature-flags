@@ -59,6 +59,13 @@ angular.module('feature-flags').service('featureFlags', function($q, featureFlag
             featureFlagOverrides.remove(flag.key);
         };
 
+        clear = function() {
+          angular.forEach(flags, function(flag) {
+            featureFlagOverrides.remove(flag.key);
+          });
+          flags = [];
+        }
+
     return {
         set: set,
         get: get,
