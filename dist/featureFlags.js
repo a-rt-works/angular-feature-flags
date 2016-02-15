@@ -182,14 +182,14 @@ angular.module('feature-flags').service('featureFlags', ['$q', 'featureFlagOverr
         reset = function(flag) {
             flag.active = serverFlagCache[flag.key];
             featureFlagOverrides.remove(flag.key);
-        };
+        },
 
         clear = function() {
           angular.forEach(flags, function(flag) {
             featureFlagOverrides.remove(flag.key);
+            delete serverFlagCache[flag.key];
           });
-          flags = [];
-        }
+        };
 
     return {
         set: set,
@@ -199,7 +199,8 @@ angular.module('feature-flags').service('featureFlags', ['$q', 'featureFlagOverr
         reset: reset,
         isOn: isOn,
         isOnByDefault: isOnByDefault,
-        isOverridden: isOverridden
+        isOverridden: isOverridden,
+        clear: clear
     };
 }]);
 
